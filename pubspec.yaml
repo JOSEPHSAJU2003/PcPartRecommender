@@ -91,10 +91,10 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
   assets:
-    - assets/motherboard.png
-    - assets/gaming.jpg
-    - assets/work.jpg
-    - assets/video_editing.jpg
-    - assets/graphic_design.jpg
+    - assets/building.jpeg
+    - assets/gaming.jpeg
+    - assets/working.jpeg
+    - assets/editing.jpeg
+    - assets/graphic designing.jpg
     - assets/web.jpg
-    - assets/programming.jpg
+    - assets/streaming.jpeg

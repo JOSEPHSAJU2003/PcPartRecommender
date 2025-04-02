@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'dart:convert';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 const apiKey =
     'AIzaSyC-0arWda27ocllNsKegOVxAyTaf3pe-0o'; // Replace with your actual API key
 
@@ -149,5 +151,27 @@ Return only this JSON format:
                 ),
               ),
     );
+  }
+}
+Future<void> saveBuildToSupabase(String buildName, Map<String, dynamic> parts) async {
+  final supabase = Supabase.instance.client;
+  
+  try {
+    await supabase.from('saved_builds').insert({
+      'user_id': supabase.auth.currentUser!.id,
+      'build_name': buildName,
+      'processor': parts['processor'],
+      'cooling': parts['cooling'],
+      'gpu': parts['gpu'],
+      'ram': parts['ram'],
+      'storage': parts['storage'],
+      'psu': parts['psu'],
+      'motherboard': parts['motherboard'],
+      'category': parts['category'],
+      'created_at': DateTime.now().toIso8601String(),
+    });
+  } catch (e) {
+    print('Error saving build: $e');
+    rethrow;
   }
 }

@@ -1,22 +1,67 @@
 import 'package:flutter/material.dart';
 import 'AI/firstquestion.dart';
-import 'pc_selection_page.dart'; // Fixed missing semicolon
+import 'pc_selection_page.dart';
+import 'saved_builds_page.dart';
+import 'package:provider/provider.dart';
+import 'models/pc_provider.dart';
+import 'models/user_provider.dart';
 
-class BackgroundImageScreen extends StatelessWidget {
+class BackgroundImageScreen extends StatefulWidget {
   const BackgroundImageScreen({super.key});
 
   @override
+  _BackgroundImageScreenState createState() => _BackgroundImageScreenState();
+}
+
+class _BackgroundImageScreenState extends State<BackgroundImageScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final Color primaryColor = Color(0xFF22052D); // Deep purple
+  final Color accentColor = Color(0xFFCD7D1B);  // Orange
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Get the current user ID from the provider
+    final userProvider = Provider.of<UserProvider>(context);
+    
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.folder, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SavedBuildsPage(
+                    userId: userProvider.currentUserId.toString(), // Convert int to String
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           // Background Image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/motherboard.png',
-                ), // Ensure asset is in pubspec.yaml
+                image: AssetImage('assets/building.jpeg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -66,12 +111,14 @@ class BackgroundImageScreen extends StatelessWidget {
                     const SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () {
+                        // Use ChangeNotifierProvider to wrap PCSelectionPage
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder:
-                                (context) =>
-                                    PCSelectionPage(), // Navigate to PCSelectionPage
+                            builder: (context) => ChangeNotifierProvider(
+                              create: (_) => PCProvider(),
+                              child: PCSelectionPage(),
+                            ),
                           ),
                         );
                       },
@@ -102,3 +149,4 @@ class BackgroundImageScreen extends StatelessWidget {
     );
   }
 }
+

@@ -3,12 +3,12 @@ import 'secondquestion.dart';
 
 class firstquestion extends StatelessWidget {
   final List<Map<String, String>> categories = [
-    {"title": "Gaming", "image": "assets/gaming.jpg"},
-    {"title": "Productivity", "image": "assets/work.jpg"},
-    {"title": "Video Editing", "image": "assets/video_editing.jpg"},
-    {"title": "Graphic Design", "image": "assets/graphic_design.jpg"},
+    {"title": "Gaming", "image": "assets/gaming.jpeg"},
+    {"title": "Productivity", "image": "assets/working.jpeg"},
+    {"title": "Video Editing", "image": "assets/editing.jpeg"},
+    {"title": "Graphic Design", "image": "assets/graphic designing.jpg"},
     {"title": "Social Media", "image": "assets/web.jpg"},
-    {"title": "Programming", "image": "assets/programming.jpg"},
+    {"title": "Programming", "image": "assets/streaming.jpeg"},
   ];
 
   @override
